@@ -1,0 +1,29 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+// Initial state for assets
+const initialState = {
+  assets: [
+    { id: 1, symbol: 'BTC', name: 'Bitcoin', price: 0, volume: 0, marketCap: 0, change1h: 0, change24h: 0, change7d: 0, circulatingSupply: 0, maxSupply: 0 },
+    { id: 2, symbol: 'ETH', name: 'Ethereum', price: 0, volume: 0, marketCap: 0, change1h: 0, change24h: 0, change7d: 0, circulatingSupply: 0, maxSupply: 0 },
+    { id: 3, symbol: 'USDT', name: 'Tether', price: 0, volume: 0, marketCap: 0, change1h: 0, change24h: 0, change7d: 0, circulatingSupply: 0, maxSupply: 0 }
+  ]
+};
+
+const cryptoSlice = createSlice({
+  name: 'crypto',
+  initialState,
+  reducers: {
+    updateCryptoData: (state, action) => {
+      const updatedAsset = action.payload;
+      const index = state.assets.findIndex(asset => asset.symbol === updatedAsset.symbol);
+      if (index >= 0) {
+        state.assets[index] = { ...state.assets[index], ...updatedAsset };
+      }
+    }
+  }
+});
+
+export const { updateCryptoData } = cryptoSlice.actions;
+export const selectAssets = (state) => state.crypto.assets;
+
+export default cryptoSlice.reducer;
