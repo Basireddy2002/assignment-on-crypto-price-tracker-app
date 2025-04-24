@@ -1,0 +1,40 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectAssets } from '../redux/slices/cryptoSlice';
+import CryptoRow from './CryptoRow';
+
+const CryptoTable = () => {
+  const assets = useSelector(selectAssets);
+
+  return (
+    <div className="container">
+      <h2>Crypto Price Tracker</h2>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Logo</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>1h %</th>
+            <th>24h %</th>
+            <th>7d %</th>
+            <th>Market Cap</th>
+            <th>24h Volume</th>
+            <th>Circulating Supply</th>
+            <th>Max Supply</th>
+            <th>7D Chart</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assets.map((asset, index) => (
+            <CryptoRow key={index} asset={asset} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default CryptoTable;
