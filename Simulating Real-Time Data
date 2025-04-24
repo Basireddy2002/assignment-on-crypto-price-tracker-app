@@ -1,0 +1,42 @@
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateCryptoData } from './redux/slices/cryptoSlice';
+import CryptoTable from './components/CryptoTable';
+
+const getRandomChange = () => Math.random() * 5 - 2.5; // Random change between -2.5% to +2.5%
+const getRandomVolume = () => Math.floor(Math.random() * 1000000) + 100000;
+
+const generateRandomCryptoData = () => {
+  return {
+    symbol: ['BTC', 'ETH', 'USDT'][Math.floor(Math.random() * 3)],
+    price: Math.random() * 50000 + 1000, // Random price between $1000 to $50000
+    change1h: getRandomChange(),
+    change24h: getRandomChange(),
+    change7d: getRandomChange(),
+    volume: getRandomVolume(),
+    marketCap: Math.random() * 500000000 + 10000000, // Random market cap between $10M to $500M
+    circulatingSupply: Math.random() * 10000000 + 1000000, // Random circulating supply
+    maxSupply: 100000000
+  };
+};
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedData = generateRandomCryptoData();
+      dispatch(updateCryptoData(updatedData));
+    }, 2000); // Update every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
+  return (
+    <div className="App">
+      <CryptoTable />
+    </div>
+  );
+};
+
+export default App;
