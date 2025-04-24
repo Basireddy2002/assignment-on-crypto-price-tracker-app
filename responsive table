@@ -1,0 +1,36 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import CryptoRow from "./CryptoRow";
+
+const CryptoTable = () => {
+  const cryptos = useSelector((state) => state.crypto.cryptos);
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Logo</th>
+          <th>Name</th>
+          <th>Symbol</th>
+          <th>Price</th>
+          <th>1h %</th>
+          <th>24h %</th>
+          <th>7d %</th>
+          <th>Market Cap</th>
+          <th>24h Volume</th>
+          <th>Circulating Supply</th>
+          <th>Max Supply</th>
+          <th>7D Chart</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cryptos.map((crypto, index) => (
+          <CryptoRow key={crypto.id} index={index + 1} crypto={crypto} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default CryptoTable;
