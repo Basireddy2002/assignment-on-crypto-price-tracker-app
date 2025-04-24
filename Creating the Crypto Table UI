@@ -1,3 +1,5 @@
+/components/CryptoTable.js:
+
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectAssets } from '../redux/slices/cryptoSlice';
@@ -38,3 +40,37 @@ const CryptoTable = () => {
 };
 
 export default CryptoTable;
+
+
+
+
+
+/components/CryptoRow.js:
+
+import React from 'react';
+
+const CryptoRow = ({ asset }) => {
+  return (
+    <tr>
+      <td>{asset.id}</td>
+      <td><img src={`/assets/logos/${asset.symbol}.png`} alt={asset.symbol} width="30" /></td>
+      <td>{asset.name}</td>
+      <td>{asset.symbol}</td>
+      <td>${asset.price.toFixed(2)}</td>
+      <td className={asset.change1h >= 0 ? 'text-success' : 'text-danger'}>{asset.change1h.toFixed(2)}%</td>
+      <td className={asset.change24h >= 0 ? 'text-success' : 'text-danger'}>{asset.change24h.toFixed(2)}%</td>
+      <td className={asset.change7d >= 0 ? 'text-success' : 'text-danger'}>{asset.change7d.toFixed(2)}%</td>
+      <td>${asset.marketCap.toLocaleString()}</td>
+      <td>{asset.volume.toLocaleString()}</td>
+      <td>{asset.circulatingSupply.toLocaleString()}</td>
+      <td>{asset.maxSupply.toLocaleString()}</td>
+      <td><img src={`/assets/logos/${asset.symbol}-7d-chart.png`} alt="7D chart" width="100" /></td>
+    </tr>
+  );
+};
+
+export default CryptoRow;
+
+
+
+
