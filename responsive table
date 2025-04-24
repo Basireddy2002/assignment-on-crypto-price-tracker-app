@@ -1,3 +1,31 @@
+CryptoTable.jsx
+
+
+import React from "react";
+import { useSelector } from "react-redux";
+import CryptoRow from "./CryptoRow";
+
+const CryptoTable = () => {
+  const cryptos = useSelector((state) => state.crypto.cryptos);
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Logo</th>
+          <th>Name</th>
+          <th>Symbol</th>
+          <th>Price</th>
+          <th>1h %</th>
+          <th>24h %</th>
+          <th>7d %</th>
+          <th>Market Cap</th>
+          <th>24h Volume</th>
+          <th>Circulating Supply</th>
+    
+
+
 import React from "react";
 import { useSelector } from "react-redux";
 import CryptoRow from "./CryptoRow";
@@ -34,3 +62,30 @@ const CryptoTable = () => {
 };
 
 export default CryptoTable;
+
+CryptoRow.jsx
+import React from "react";
+
+const CryptoRow = ({ index, crypto }) => {
+  const { logo, name, symbol, price, percent1h, percent24h, percent7d, marketCap, volume24h, circulatingSupply, maxSupply } = crypto;
+
+  return (
+    <tr>
+      <td>{index}</td>
+      <td><img src={logo} alt={name} width="20" /></td>
+      <td>{name}</td>
+      <td>{symbol}</td>
+      <td>${price}</td>
+      <td style={{ color: percent1h > 0 ? "green" : "red" }}>{percent1h}%</td>
+      <td style={{ color: percent24h > 0 ? "green" : "red" }}>{percent24h}%</td>
+      <td style={{ color: percent7d > 0 ? "green" : "red" }}>{percent7d}%</td>
+      <td>${marketCap.toLocaleString()}</td>
+      <td>${volume24h.toLocaleString()}</td>
+      <td>{circulatingSupply.toLocaleString()}</td>
+      <td>{maxSupply ? maxSupply.toLocaleString() : "N/A"}</td>
+      <td><img src="seven-day-chart.png" alt="7D Chart" width="100" /></td>
+    </tr>
+  );
+};
+
+export default CryptoRow;
